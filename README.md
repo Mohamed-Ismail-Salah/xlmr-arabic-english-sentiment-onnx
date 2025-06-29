@@ -71,8 +71,7 @@ The system is production-ready and benchmarks different inference formats for pe
   - PyTorch inference
   - ONNX FP32
   - ONNX INT8 (quantized)
-- Measured average latency over 100 runs for fair comparison.
-
+ 
 ---
 
 ## ⚡ Performance Results
