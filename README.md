@@ -1,67 +1,77 @@
-# XLMR Arabic-English Sentiment ONNX
+# XLM-R Sentiment Analysis (Arabic-English, ONNX Optimized)
 
-This project presents a **production-ready multilingual sentiment analysis system**, capable of understanding **Arabic and English** text, and optimized for **fast and lightweight deployment** using **ONNX** and **INT8 quantization**.
-
- 
+This project presents a **multilingual sentiment analysis pipeline**, capable of understanding **Arabic and English** text, and optimized for **fast and lightweight deployment** using **ONNX** and **INT8 quantization**.  
+The system is production-ready and benchmarks different inference formats for performance comparison.
 
 ---
 
 ## 🎯 Project Objectives
 
-- Build a **sentiment analysis model** that supports **Arabic and English**.
-- Fine-tune a multilingual transformer model on custom sentiment data.
-- Convert the trained model from **PyTorch to ONNX** format.
-- Apply **model quantization** to optimize for speed and size.
-- Benchmark performance between PyTorch, ONNX FP32, and ONNX INT8.
-
+- Build a robust **sentiment analysis model** for Arabic and English.
+- Compare multiple pretrained models:  
+  - `cardiffnlp/twitter-xlm-roberta-base-sentiment-multilingual`  
+  - `xlm-roberta-base`  
+  → **Selected `xlm-roberta-base`** based on accuracy on custom dataset.
+- Fine-tune the selected model on multilingual sentiment data.
+- Convert the model from **PyTorch → ONNX**.
+- Apply **quantization** for faster and smaller inference models.
+- Benchmark inference speed across PyTorch, ONNX FP32, and ONNX INT8.
+- Use separate **sources for training and evaluation data** to ensure generalization.
 
 ---
 
 ## 🛠️ Technologies Used
 
-| Tool            | Purpose                           |
-|-----------------|------------------------------------|
-| HuggingFace Transformers | Pretrained XLM-RoBERTa model |
-| PyTorch         | Model fine-tuning                  |
-| ONNX            | Model export                       |
-| ONNX Runtime    | Fast inference engine              |
-| Quantization    | Model size/speed optimization      |
-| Tokenizers      | Multilingual text preprocessing    |
-| Python          | Implementation                     |
+| Tool                     | Purpose                           |
+|--------------------------|------------------------------------|
+| HuggingFace Transformers| Fine-tuning pretrained XLM-R models|
+| PyTorch                  | Model training                     |
+| ONNX                     | Model export format                |
+| ONNX Runtime             | Efficient inference                |
+| Quantization             | Speed and size optimization        |
+| Tokenizers               | Multilingual preprocessing         |
+| Python                   | Implementation & scripting         |
 
 ---
 
 ## 📊 Model Overview
 
-- **Base model**: `cardiffnlp/twitter-xlm-roberta-base-sentiment-multilingual`
-- **Languages supported**: Arabic, English
+- **Base model used**: `xlm-roberta-base`
+- **Compared against**: `cardiffnlp/twitter-xlm-roberta-base-sentiment-multilingual`
+- **Selected based on**: Accuracy on custom Arabic-English sentiment dataset
 - **Sentiment classes**: Positive, Neutral, Negative
-- **Model format**: Trained in PyTorch → Exported to ONNX → Quantized to INT8
-- **Deployment ready**: Fast inference via ONNXRuntime
+- **Languages supported**: Arabic, English
+- **Model pipeline**:
+  - Trained with PyTorch
+  - Exported to ONNX
+  - Quantized to INT8
+- **Optimized for deployment**: Fast inference with ONNXRuntime
 
 ---
 
 ## 🚀 Implementation Stages
 
-### 1. Fine-tuning the model
-- Trained on mixed Arabic-English labeled sentiment dataset.
-- Used `AutoModelForSequenceClassification` with softmax output.
-- Applied appropriate tokenization and padding for both languages.
+### 1. Model Comparison & Fine-tuning
+- Evaluated multiple pretrained multilingual models.
+- Selected `xlm-roberta-base` based on performance.
+- Fine-tuned using a custom dataset containing Arabic and English sentiment labels.
+- Data collected from **varied sources**, and evaluation was performed using a **different source** to assess generalization.
 
-### 2. Export to ONNX
-- Converted model using `torch.onnx.export` with dynamic axes.
-- Ensured compatibility with batch inputs and inference APIs.
+### 2. ONNX Export
+- Exported PyTorch model using `torch.onnx.export`.
+- Used `dynamic_axes` to support variable batch sizes.
+- Defined clear input/output names for easier deployment.
 
 ### 3. Quantization
-- Applied post-training dynamic quantization using `onnxruntime.quantization`.
-- Reduced model size and improved inference time (up to **2x speed-up**).
+- Applied **post-training dynamic quantization** using `onnxruntime.quantization`.
+- Significantly reduced model size and improved inference time (~2× speed-up over PyTorch).
 
 ### 4. Benchmarking
-- Created Python script to compare:
+- Created benchmarking script to compare:
   - PyTorch inference
   - ONNX FP32
-  - ONNX INT8
-- Measured average latency over 100 runs.
+  - ONNX INT8 (quantized)
+- Measured average latency over 100 runs for fair comparison.
 
 ---
 
@@ -71,9 +81,9 @@ This project presents a **production-ready multilingual sentiment analysis syste
 |----------------|-------------|----------------------|
 | PyTorch        | 0.0947      | 1×                   |
 | ONNX FP32      | 0.0636      | 1.49×                |
-| ONNX Quantized | 0.0458      | 2.07×                |
+| ONNX INT8      | 0.0458      | 2.07×                |
 
-> ✅ Quantized model is 2× faster and significantly smaller.
+> ✅ The quantized model is nearly **2× faster** and significantly smaller in size, ideal for real-time applications.
 
 ---
 
@@ -81,11 +91,11 @@ This project presents a **production-ready multilingual sentiment analysis syste
 
 ```bash
 Sentiment Analysis/
-├── models/                # Original + ONNX + quantized models
-├── deployment/            # Scripts for export, quantization, benchmarking
-├── data/                  # (Optional) Training/Evaluation data
-├── export_onnx.py
-├── quantize.py
-├── benchmark.py
+├── deployment/            # Scripts: export, quantize, benchmark, inference
+├── models/                # (Ignored)Trained PyTorch model + ONNX + INT8 versions
+├── notebooks/             # Training notebooks and exploration
+├── data/                  # (Ignored) Raw and preprocessed datasets
+├── venv/                  # (Ignored) Python virtual environment
+├── .gitignore
 ├── requirements.txt
 └── README.md
