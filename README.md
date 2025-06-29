@@ -2,7 +2,7 @@
 
 This project presents a **production-ready multilingual sentiment analysis system**, capable of understanding **Arabic and English** text, and optimized for **fast and lightweight deployment** using **ONNX** and **INT8 quantization**.
 
-> 🧠 Designed and implemented by **Mohamed Ismail Salah** as part of a Machine Learning Internship at **Kemet AI**.
+ 
 
 ---
 
