@@ -13,7 +13,7 @@ This project presents a **production-ready multilingual sentiment analysis syste
 - Convert the trained model from **PyTorch to ONNX** format.
 - Apply **model quantization** to optimize for speed and size.
 - Benchmark performance between PyTorch, ONNX FP32, and ONNX INT8.
-- Prepare the model for integration into web/mobile applications.
+
 
 ---
 
