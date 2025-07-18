@@ -86,6 +86,13 @@ The system is production-ready and benchmarks different inference formats for pe
 
 ---
 
+## 🧪 Benchmark Comparison of Sentiment Models
+
+| **Model**                                   | **Accuracy** | **Macro F1 Score** | **Negative F1** | **Neutral F1** | **Positive F1** | **Support** |
+|--------------------------------------------|--------------|---------------------|------------------|----------------|------------------|-------------|
+| **XLM-RoBERTa Base**                        | 0.73         | 0.73                | 0.72             | 0.74           | 0.72             | 15,090      |
+| **Twitter XLM-R Sentiment (Multilingual)** | 0.70         | 0.70                | 0.74             | 0.62           | 0.74             | 7,800       |
+
 ## 📂 Project Structure
 
 ```bash
