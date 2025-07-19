@@ -1,0 +1,7 @@
+venv/
+__pycache__/
+data/
+notebooks/
+optimization/
+models/twitter-xlm-roberta/
+models/xlmr_sentiment.onnx
