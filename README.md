@@ -31,7 +31,7 @@ The system is production-ready and benchmarks different inference formats for pe
 | Quantization             | Speed and size optimization        |
 | Tokenizers               | Multilingual preprocessing         |
 | Python                   | Implementation & scripting         |
-
+| Docker                   | Containerized deployment           |
 ---
 
 ## 📊 Model Overview
@@ -46,6 +46,7 @@ The system is production-ready and benchmarks different inference formats for pe
   - Exported to ONNX
   - Quantized to INT8
 - **Optimized for deployment**: Fast inference with ONNXRuntime
+- **Docker support**: The full API is containerized using **Docker** for easy and fast deployment with one command.
 
 ---
 
@@ -71,9 +72,15 @@ The system is production-ready and benchmarks different inference formats for pe
   - PyTorch inference
   - ONNX FP32
   - ONNX INT8 (quantized)
- 
----
 
+### 5. Docker Deployment
+- Containerized the entire API using **Docker** to simplify deployment.
+- Dockerfile installs dependencies, loads the quantized ONNX model, and launches a lightweight Flask server.
+- To run the API locally:
+  ```bash
+  docker build -t sentiment-api .
+  docker run --rm -p 5000:5000 sentiment-api
+---
 ## ⚡ Performance Results
 
 | Format         | Latency (s) | Speed-up vs PyTorch |
@@ -93,15 +100,33 @@ The system is production-ready and benchmarks different inference formats for pe
 | **XLM-RoBERTa Base**                        | 0.73         | 0.73                | 0.72             | 0.74           | 0.72             | 15,090      |
 | **Twitter XLM-R Sentiment (Multilingual)** | 0.70         | 0.70                | 0.74             | 0.62           | 0.74             | 7,800       |
 
+## 🧱 Docker Deployment
+
+You can easily run the sentiment analysis API using Docker without installing any dependencies.
+
+### 🔧 How to Run the Project with Docker
+
+1. **Clone the repository (if not already):**
+
+ 2. **Build the Docker image:**
+    run--> docker build -t sentiment-api .
+   
+3. **Run the API container:**
+   run-->docker run --rm -p 5000:5000 sentiment-api
+
+
 ## 📂 Project Structure
 
 ```bash
 Sentiment Analysis/
-├── deployment/            # Scripts: export, quantize, benchmark, inference
+├── optimization/            # Scripts: export, quantize, benchmark, inference
 ├── models/                # (Ignored)Trained PyTorch model + ONNX + INT8 versions
 ├── notebooks/             # Training notebooks and exploration
 ├── data/                  # (Ignored) Raw and preprocessed datasets
-├── venv/                  # (Ignored) Python virtual environment
+├── venv/
+├── app/
+├── src/             
 ├── .gitignore
 ├── requirements.txt
+├──  Dockerfile
 └── README.md
